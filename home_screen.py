@@ -80,7 +80,7 @@ def main():
 def title_screen(screen):
     play_title_scr_music()
     start_btn = UIElement(
-        center_position=(400, 400),
+        center_position=(400, 200),
         font_size=30,
         bg_rgb=GREEN,
         text_rgb=BLACK,
@@ -89,7 +89,7 @@ def title_screen(screen):
     )
 
     quit_btn = UIElement(
-        center_position=(400, 200),
+        center_position=(400, 300),
         font_size=30,
         bg_rgb=GREEN,
         text_rgb=BLACK,
