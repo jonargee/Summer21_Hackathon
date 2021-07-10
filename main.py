@@ -1,6 +1,8 @@
 import pygame, sys
 from pygame import mixer
 
+# files Jon has been working on
+from home_screen import create_surface_with_text, UIElement
 from music import play_lv1_music
 
 clock = pygame.time.Clock()
@@ -17,6 +19,8 @@ pygame.display.set_caption('Pygame Window')
 WINDOW_SIZE = (600,400)
 screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
 display = pygame.Surface((600,400))
+
+
 
 #Images for game
 player_image = pygame.image.load('cat.png')
@@ -213,6 +217,8 @@ while True:
                 moving_right = False
             if event.key == K_LEFT:
                 moving_left = False
+
+
 
     #scaling of game window
     surf = pygame.transform.scale(display, WINDOW_SIZE)
