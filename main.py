@@ -1,11 +1,15 @@
 import pygame, sys
 from pygame import mixer
 
+from music import play_lv1_music
+
 clock = pygame.time.Clock()
 
 from pygame.locals import *
 pygame.init()
 mixer.init()
+
+play_lv1_music()
 
 pygame.display.set_caption('Pygame Window')
 
@@ -29,9 +33,6 @@ GREY_TILE = shelf_image.get_width()
 
 # background = pygame.image.load('some_image.png')
 # background = pygame.transform.scale(background, (600, 400))
-
-background_music = mixer.music.load("toaf_remix.mp3")
-mixer.music.play(-1)
 
 
 #creating scroll variable
