@@ -1,5 +1,7 @@
 import pygame
 import os
+from pygame import mixer
+mixer.init()
 
 WIDTH, HEIGHT = 1200, 700
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -12,6 +14,9 @@ CAT_WIDTH, CAT_HEIGHT = 100, 150
 
 CAT_IMAGE = pygame.image.load(os.path.join("assets", "cat.png"))
 CAT = pygame.transform.scale(CAT_IMAGE, (CAT_WIDTH, CAT_HEIGHT))
+
+background_music = mixer.music.load(os.path.join("assets", "toaf.mp3"))
+mixer.music.play(-1)
 
 VEL = 5
 FPS = 60
@@ -37,6 +42,7 @@ def handle_cat_movement(keys_pressed, cat):
 def main():
     cat = pygame.Rect(100, 300, WIDTH, HEIGHT)
     clock = pygame.time.Clock()
+
     run = True
     while run:
         clock.tick(FPS)
