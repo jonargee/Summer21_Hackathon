@@ -33,6 +33,7 @@ GREY_TILE = shelf_image.get_width()
 background_music = mixer.music.load("toaf_remix.mp3")
 mixer.music.play(-1)
 
+
 #creating scroll variable
 scroll = [0,0]
 
