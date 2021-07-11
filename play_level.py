@@ -52,14 +52,13 @@ def play_level(screen):
             # self.col_type = col_type
             self.fish_img = pygame.image.load('fishbone.png')
             self.fly_img = pygame.image.load('fly_2.png')
-            self.fly_img = pygame.transform.scale(self.fly_img, (600, 400))
             self.hitbox = (self.x, self.y, 25, 30)
 
         def draw_fish(self, win):
             display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def draw_fly(self, win):
-            screen.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
+            display.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def get_rect(self):
             return pygame.Rect(x, y, 32, 32)
