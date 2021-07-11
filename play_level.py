@@ -3,9 +3,15 @@ import random
 
 clock = pygame.time.Clock()
 from music import play_level_music, play_meow_fx, jump_fx, good_thing, bad_thing, cat_death
+from home_screen import UIElement, GameState
 
 from pygame.locals import *
 pygame.init()
+
+GREEN = (78, 245, 56)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
 
 
 def play_level(screen):
@@ -196,6 +202,15 @@ def play_level(screen):
 
 
     while True:
+
+        return_btn = UIElement(
+            center_position=(460, 10),
+            font_size=20,
+            bg_rgb=WHITE,
+            text_rgb=BLACK,
+            text="RETURN TO MAIN MENU",
+            action=GameState.TITLE,
+        )
         #fills display with color
         display.fill((146,244,255))
 
@@ -269,6 +284,10 @@ def play_level(screen):
 
                 pygame.quit()
                 sys.exit()
+            mouse_up = False
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                play_meow_fx()
+                mouse_up = True
             if event.type == KEYDOWN:
                 if event.key == K_RIGHT:
                     moving_right = True
@@ -283,10 +302,14 @@ def play_level(screen):
                     moving_right = False
                 if event.key == K_LEFT:
                     moving_left = False
+        ui_action = return_btn.update(pygame.mouse.get_pos(), mouse_up)
+        if ui_action is not None:
+            return ui_action
 
         #scaling of game window
         surf = pygame.transform.scale(display, WINDOW_SIZE)
         screen.blit(surf,(0,0))
+        return_btn.draw(screen)
         #updating display
         pygame.display.update()
         #game clock
