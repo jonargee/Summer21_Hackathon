@@ -267,7 +267,7 @@ def play_level(screen):
 
         # defining character movement variable
         player_movement = [0, 0]
-        # Establing how player moves based on moving variable
+        # Establishing how player moves based on moving variable
         if moving_right:
             player_movement[0] += 2
             direction = 1
