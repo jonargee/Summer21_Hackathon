@@ -310,9 +310,13 @@ def play_level(screen):
 
         for fish in collectable_fish:
             fish.draw_fish(display)
-            if fish.collision_test(player_rect):
+            if player_rect.colliderect(fish.get_rect()):
                 score += 1
-                fish.hit()
+                fish.collision_test(player_rect)
+
+        font2 = pygame.font.SysFont('comicsans', 20)
+        lives_text = font2.render('Score: ' + str(score), True, (255,255,255))
+        display.blit(lives_text, (10,25))
 
         print(player_rect.x, player_rect.y)
 
