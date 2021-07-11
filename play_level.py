@@ -6,6 +6,7 @@ from music import play_level_music, play_meow_fx, jump_fx, good_thing, bad_thing
 from home_screen import UIElement, GameState
 
 from pygame.locals import *
+
 pygame.init()
 
 GREEN = (78, 245, 56)
@@ -13,9 +14,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 
-
 def play_level(screen):
-    level_select = 1 # placeholder for various levels
+    level_select = 1  # placeholder for various levels
     pygame.display.set_caption('Pygame Window')
     play_level_music()
     # Window and display size
@@ -61,28 +61,19 @@ def play_level(screen):
             display.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def get_rect(self):
-            return pygame.Rect(x, y, 32, 32)
+            return pygame.Rect(self.x, self.y, 32, 32)
 
         def hit(self):
             font1 = pygame.font.SysFont('comicsans', 100)
-            text = font1.render('Score +1', 1, (255, 255, 255))
-            display.blit(text, (250 - (text.get_width() / 2)))
+            text = font1.render('Score +1', True, (255, 255, 255))
+            display.blit(text, (300 - (text.get_width() / 2), 175))
             pygame.display.update()
-            i = 0
-            while i < 100:
-                pygame.time.delay(10)
-                i += 1
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        i = 301
-                        pygame.quit()
 
         def collision_test(self, rect):
             collect_rect = self.get_rect()
             if collect_rect.colliderect(rect):
-                print('hit')
+                self.hit()
                 good_thing()
-
 
     class enemy(object):
 
@@ -110,8 +101,12 @@ def play_level(screen):
                 self.walk_count += 1
 
         def hit(self):
-            bad_thing()
-            print('hit')
+            good_thing()
+            player_location = [50, 300]
+            font1 = pygame.font.SysFont('comicsans', 100)
+            text = font1.render('Life - 1', True, (255, 255, 255))
+            display.blit(text, (300 - (text.get_width() / 2), 175))
+            pygame.display.update()
 
         def move(self):
             if self.vel > 0:
@@ -126,6 +121,15 @@ def play_level(screen):
                 else:
                     self.vel = self.vel * -1
                     self.walk_count = 0
+
+        def get_rect(self):
+            return pygame.Rect(self.x, self.y, self.roach_img.get_width(), self.roach_img.get_height())
+
+        def collision_test(self, rect):
+            collect_rect = self.get_rect()
+            if collect_rect.colliderect(rect):
+                self.hit()
+                good_thing()
 
     def load_map(path):
         """
@@ -143,7 +147,6 @@ def play_level(screen):
         return game_map
 
     game_map = load_map('map')
-
 
     def collision_test(rect, tiles):
         """
@@ -212,10 +215,13 @@ def play_level(screen):
     fish5 = collectable(2398, 128)
     fly1 = collectable(76, 190)
 
+    collectable_fish = [fish1, fish2, fish3, fish4, fish5]
+    enemies = [roach1, roach2, roach3, roach4, roach5, roach6]
+
     score = 0
+    lives = 9
 
     background = pygame.image.load("fish_bg_2.JPG")
-
 
     while True:
 
@@ -227,20 +233,19 @@ def play_level(screen):
             text="RETURN TO MAIN MENU",
             action=GameState.TITLE,
         )
-        #fills display with color
+        # fills display with color
         # display.fill((146,244,255))
         display.fill((0, 0, 0))
         display.blit(background, (0, 0))
 
-        #defining scroll value based on character location
-        scroll[0] += (player_rect.x - scroll[0]- 50)
-        
+        # defining scroll value based on character location
+        scroll[0] += (player_rect.x - scroll[0] - 50)
 
-        #defining list of tile rectangles for map
+        # defining list of tile rectangles for map
         tile_rects = []
         y = 0
         for row in game_map:
-            #filling out game map
+            # filling out game map
             x = 0
             for tile in row:
                 if tile == '1':
@@ -250,9 +255,9 @@ def play_level(screen):
                 if tile == '3':
                     display.blit(white_image, (x * WHITE_TILE - scroll[0], y * WHITE_TILE - scroll[1]))
                 if tile == '4':
-                    display.blit(black_image, (x * BLACK_TILE - scroll[0], y  * BLACK_TILE - scroll[1]))
+                    display.blit(black_image, (x * BLACK_TILE - scroll[0], y * BLACK_TILE - scroll[1]))
                 if tile == '5':
-                    display.blit(grey_image, (x * GREY_TILE - scroll[0], y  * GREY_TILE - scroll[1]))
+                    display.blit(grey_image, (x * GREY_TILE - scroll[0], y * GREY_TILE - scroll[1]))
                 if tile != '0':
                     tile_rects.append(pygame.Rect(x * SHELF_TILE, y * SHELF_TILE, SHELF_TILE, SHELF_TILE))
 
@@ -260,9 +265,9 @@ def play_level(screen):
 
             y += 1
 
-        #defining character movement variable
-        player_movement = [0,0]
-        #Establing how player moves based on moving variable
+        # defining character movement variable
+        player_movement = [0, 0]
+        # Establing how player moves based on moving variable
         if moving_right:
             player_movement[0] += 2
             direction = 1
@@ -275,7 +280,7 @@ def play_level(screen):
             player_y_momentum = 3
 
         player_rect, collisions = move(player_rect, player_movement, tile_rects)
-        #Checking if character collides with bottom or top of platform and establishes a jump time
+        # Checking if character collides with bottom or top of platform and establishes a jump time
         if collisions['bottom']:
             player_y_momentum = 0
             air_timer = 0
@@ -285,30 +290,30 @@ def play_level(screen):
         if collisions['top']:
             player_y_momentum = 0
 
-        #displaying of player
+        # displaying of player
         if direction == 1:
-            display.blit(player_image_right, (player_rect.x - scroll[0], player_rect.y- scroll[1]))
+            display.blit(player_image_right, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
         elif direction == 0:
             display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
-        roach1.draw(display)
-        roach2.draw(display)
-        roach3.draw(display)
-        roach4.draw(display)
-        roach5.draw(display)
-        roach6.draw(display)
-        fish1.draw_fish(display)
-        fish2.draw_fish(display)
-        fish3.draw_fish(display)
-        fish4.draw_fish(display)
-        fish5.draw_fish(display)
+
+        for roach in enemies:
+            roach.draw(display)
+            if roach.collision_test(player_rect):
+                lives -= 1
+                roach.hit()
+
+        for fish in collectable_fish:
+            fish.draw_fish(display)
+            if fish.collision_test(player_rect):
+                score += 1
+                fish.hit()
+
         fly1.draw_fly(display)
         print(player_rect.x, player_rect.y)
 
-
-        #Establishes movement by keystroke and Quiting of game loop
+        # Establishes movement by keystroke and Quiting of game loop
         for event in pygame.event.get():
             if event.type == QUIT:
-
                 pygame.quit()
                 sys.exit()
             mouse_up = False
@@ -333,11 +338,11 @@ def play_level(screen):
         if ui_action is not None:
             return ui_action
 
-        #scaling of game window
+        # scaling of game window
         surf = pygame.transform.scale(display, WINDOW_SIZE)
-        screen.blit(surf,(0,0))
+        screen.blit(surf, (0, 0))
         return_btn.draw(screen)
-        #updating display
+        # updating display
         pygame.display.update()
-        #game clock
+        # game clock
         clock.tick(60)
