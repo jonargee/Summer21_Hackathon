@@ -76,6 +76,7 @@ def play_level(screen):
             collect_rect = self.get_rect()
             if collect_rect.colliderect(rect):
                 print('hit')
+                good_thing()
 
 
     class enemy(object):
@@ -104,7 +105,7 @@ def play_level(screen):
                 self.walk_count += 1
 
         def hit(self):
-            good_thing()
+            bad_thing()
             print('hit')
 
         def move(self):
