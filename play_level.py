@@ -207,15 +207,16 @@ def play_level(screen):
     roach4 = enemy(1280, 295, 16, 16, 2500)
     roach5 = enemy(1320, 295, 16, 16, 1400)
     roach6 = enemy(1738, 72, 16, 16, 1970)
+    roach7 = enemy(2844, 106, 16, 16, 2980)
     fish1 = collectable(305, 190)
     fish2 = collectable(600, 95)
     fish3 = collectable(1155, 190)
     fish4 = collectable(1970, 64)
     fish5 = collectable(2398, 128)
-    fly1 = collectable(76, 190)
+    fish6 = collectable(3582, 30)
 
-    collectable_fish = [fish1, fish2, fish3, fish4, fish5]
-    enemies = [roach1, roach2, roach3, roach4, roach5, roach6]
+    collectable_fish = [fish1, fish2, fish3, fish4, fish5, fish6]
+    enemies = [roach1, roach2, roach3, roach4, roach5, roach6, roach7]
 
     score = 0
     lives = 9
@@ -307,7 +308,6 @@ def play_level(screen):
                 score += 1
                 fish.hit()
 
-        fly1.draw_fly(display)
         print(player_rect.x, player_rect.y)
 
         # Establishes movement by keystroke and Quiting of game loop
