@@ -13,7 +13,7 @@ from movement import collision_test, move
 clock = pygame.time.Clock()
 mixer.init()
 
-pygame.display.set_caption('Pygame Window')
+pygame.display.set_caption('One Day My Cat Will Surely Eat Me')
 
 GREEN = (78, 245, 56)
 WHITE = (255, 255, 255)

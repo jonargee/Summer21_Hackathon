@@ -17,7 +17,7 @@ BLACK = (0, 0, 0)
 
 def play_level(screen):
     level_select = 1  # placeholder for various levels
-    pygame.display.set_caption('Pygame Window')
+    pygame.display.set_caption('Level 1')
     play_level_music()
     # Window and display size
     WINDOW_SIZE = (600, 400)
@@ -303,6 +303,7 @@ def play_level(screen):
                 lives -= 1
         if player_rect.x == 30:
             lives -=1
+
 
         font2 = pygame.font.SysFont('comicsans', 20)
         lives_text = font2.render('Lives: ' + str(lives), True, (255,255,255))

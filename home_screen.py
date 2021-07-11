@@ -57,26 +57,6 @@ class UIElement(Sprite):
 
 
 
-
-
-# def main():
-#     pygame.init()
-#
-#     screen = pygame.display.set_mode((600, 400))
-#     game_state = GameState.TITLE
-#
-#     while True:
-#         if game_state == GameState.TITLE:
-#             game_state = title_screen(screen)
-#
-#         if game_state == GameState.NEWGAME:
-#             game_state = play_level(screen)
-#
-#         if game_state == GameState.QUIT:
-#             pygame.quit()
-#             return
-
-
 def title_screen(screen):
     play_title_scr_music()
     start_btn = UIElement(
