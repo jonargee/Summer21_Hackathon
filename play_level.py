@@ -51,15 +51,15 @@ def play_level(screen):
             self.y = y
             # self.col_type = col_type
             self.fish_img = pygame.image.load('fishbone.png')
-            self.fly_img = pygame.image.load("fly_2.png")
+            self.fly_img = pygame.image.load('fly_2.png')
+            self.fly_img = pygame.transform.scale(self.fly_img, (600, 400))
             self.hitbox = (self.x, self.y, 25, 30)
 
-        def draw(self, col_type, win):
-            if col_type == 1:
-                display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
-            elif col_type == 2:
-                display.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
+        def draw_fish(self, win):
+            display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
 
+        def draw_fly(self, win):
+            screen.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def get_rect(self):
             return pygame.Rect(x, y, 32, 32)
@@ -211,7 +211,7 @@ def play_level(screen):
     fish3 = collectable(1155, 190)
     fish4 = collectable(1970, 64)
     fish5 = collectable(2398, 128)
-    fly1 = collectable(1056, 288)
+    fly1 = collectable(76, 190)
 
     score = 0
 
@@ -297,12 +297,12 @@ def play_level(screen):
         roach4.draw(display)
         roach5.draw(display)
         roach6.draw(display)
-        fish1.draw(1, display)
-        fish2.draw(1, display)
-        fish3.draw(1, display)
-        fish4.draw(1, display)
-        fish5.draw(1, display)
-        fly1.draw(2, display)
+        fish1.draw_fish(display)
+        fish2.draw_fish(display)
+        fish3.draw_fish(display)
+        fish4.draw_fish(display)
+        fish5.draw_fish(display)
+        fly1.draw_fly(display)
         print(player_rect.x, player_rect.y)
 
 
