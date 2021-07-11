@@ -28,11 +28,13 @@ def jump_fx():
 def good_thing():
     """happy sound"""
     fx = pygame.mixer.Sound("good_thing.mp3")
+    fx.set_volume(.3)
     pygame.mixer.Sound.play(fx)
 
 def bad_thing():
     """sad sound"""
     fx = pygame.mixer.Sound("bad_thing.mp3")
+    fx.set_volume(.3)
     pygame.mixer.Sound.play(fx)
 
 def cat_death():

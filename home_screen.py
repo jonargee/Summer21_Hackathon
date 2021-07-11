@@ -80,8 +80,8 @@ class UIElement(Sprite):
 def title_screen(screen):
     play_title_scr_music()
     start_btn = UIElement(
-        center_position=(300, 150),
-        font_size=30,
+        center_position=(300, 130),
+        font_size=40,
         bg_rgb=BLACK,
         text_rgb=WHITE,
         text="START",
@@ -89,8 +89,8 @@ def title_screen(screen):
     )
 
     quit_btn = UIElement(
-        center_position=(300, 250),
-        font_size=30,
+        center_position=(300, 260),
+        font_size=40,
         bg_rgb=BLACK,
         text_rgb=WHITE,
         text="QUIT",
@@ -113,6 +113,14 @@ def title_screen(screen):
         screen.blit(bg_image, (0, 0))
         screen.blit(fly_1, (10, 64))
         screen.blit(fly_2, (200, 150))
+        credits_game_design = create_surface_with_text("Game Design:", 20, BLACK, WHITE)
+        credits_gen = create_surface_with_text("Gen Wills", 20, BLACK, WHITE)
+        credits_larry = create_surface_with_text("Larry Kwok", 20, BLACK, WHITE)
+        credits_jon = create_surface_with_text("Jon Ramm", 20, BLACK, WHITE)
+        screen.blit(credits_game_design, (0, 300))
+        screen.blit(credits_gen, (0, 320))
+        screen.blit(credits_larry, (0, 340))
+        screen.blit(credits_jon, (0, 360))
 
         for button in buttons:
             ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
