@@ -49,7 +49,6 @@ def play_level(screen):
         def __init__(self, x, y):
             self.x = x
             self.y = y
-            # self.col_type = col_type
             self.fish_img = pygame.image.load('fishbone.png')
             self.fly_img = pygame.image.load('fly_2.png')
             self.hitbox = (self.x, self.y, 25, 30)
