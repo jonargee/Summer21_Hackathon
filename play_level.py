@@ -200,6 +200,8 @@ def play_level(screen):
 
     score = 0
 
+    background = pygame.image.load("fish_bg_2.JPG")
+
 
     while True:
 
@@ -212,7 +214,9 @@ def play_level(screen):
             action=GameState.TITLE,
         )
         #fills display with color
-        display.fill((146,244,255))
+        # display.fill((146,244,255))
+        display.fill((0, 0, 0))
+        display.blit(background, (0, 0))
 
         #defining scroll value based on character location
         scroll[0] += (player_rect.x - scroll[0]- 50)
