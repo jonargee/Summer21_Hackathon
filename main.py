@@ -26,7 +26,7 @@ BLACK_TILE = shelf_image.get_width()
 grey_image = pygame.image.load('grey.png')
 GREY_TILE = shelf_image.get_width()
 roach_image = pygame.image.load('roach.png')
-fish_img = pygame.image.load('fishbone.png')
+# fish_img = pygame.image.load('fishbone.png')
 
 
 #creating scroll variable
@@ -106,24 +106,6 @@ def load_map(path):
         game_map.append(list(row))
     return game_map
 game_map = load_map('map')
-
-
-#old game map that I didn't want to erase because I spent a lot of time writing it
-game_map2 = [['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','2','2','2','2','2','2','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']]
-
-
 
 def collision_test(rect, tiles):
     """
@@ -221,9 +203,6 @@ while True:
 
         y += 1
 
-
-
-
     #defining character movement variable
     player_movement = [0,0]
     #Establing how player moves based on moving variable
@@ -254,10 +233,10 @@ while True:
     roach1.draw(display)
     roach2.draw(display)
 
-    if player_rect.y < roach1.hitbox[1] + roach1.hitbox[3] and player_rect.y > roach1.hitbox[1]:
-        if player_rect.x > roach1.hitbox[0] and player_rect.x < roach1.hitbox[0] + roach1.hitbox[2]:
+    if -2 <= player_rect.y - roach1.hitbox[1] <= 2:
+        if -2 <= player_rect.x - roach1.hitbox[0] <= 2:
             roach1.hit()
-
+            print('o')
 
 
 
@@ -265,7 +244,6 @@ while True:
     #    collectable.render(display.scroll)
     #    if collectables.collision_test(player_rect):
      #       scrore += 1
-
 
     #Establishes movement by keystroke and Quiting of game loop
     for event in pygame.event.get():
