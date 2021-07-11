@@ -97,6 +97,10 @@ def title_screen(screen):
         action=GameState.QUIT,
     )
 
+    fly_1 = pygame.image.load("fly_1.png")
+    fly_1 = pygame.transform.scale(fly_1, (600, 400))
+    fly_2 = pygame.image.load("fly_2.png")
+    fly_2 = pygame.transform.scale(fly_2, (600, 400))
     buttons = [start_btn, quit_btn]
 
     while True:
@@ -106,12 +110,15 @@ def title_screen(screen):
                 play_meow_fx()
                 mouse_up = True
         screen.fill(GREEN)
+        screen.blit(fly_1, (-150, -50))
+        screen.blit(fly_2, (200, 150))
 
         for button in buttons:
             ui_action = button.update(pygame.mouse.get_pos(), mouse_up)
             if ui_action is not None:
                 return ui_action
             button.draw(screen)
+
 
         pygame.display.flip()
 
