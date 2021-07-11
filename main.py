@@ -13,7 +13,9 @@ screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
 display = pygame.Surface((600,400))
 
 #Images for game
-player_image = pygame.image.load('cat.png')
+cat_image = pygame.image.load('cat.png')
+left_player_image = pygame.transform.flip(cat_image, True, False)
+right_player_image = pygame.image.load('cat.png')
 floor_image = pygame.image.load('check.png')
 FLOOR_TILE = floor_image.get_width()
 shelf_image = pygame.image.load('shelf.png')
@@ -28,7 +30,8 @@ GREY_TILE = shelf_image.get_width()
 #creating scroll variable
 scroll = [0,0]
 
-
+#initializing directional orientation
+direction = 1
 
 def load_map(path):
     """
@@ -44,25 +47,8 @@ def load_map(path):
     for row in data:
         game_map.append(list(row))
     return game_map
+
 game_map = load_map('map')
-
-
-#old game map that I didn't want to erase because I spent a lot of time writing it
-game_map2 = [['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','2','2','2','2','2','2','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'],
-            ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']]
-
-
 
 def collision_test(rect, tiles):
     """
@@ -113,7 +99,7 @@ player_y_momentum = 0
 air_timer = 0
 
 #Defining player rectangle
-player_rect = pygame.Rect(player_location[0],player_location[1],player_image.get_width(),player_image.get_height())
+player_rect = pygame.Rect(player_location[0],player_location[1],cat_image.get_width(),cat_image.get_height())
 
 #Game loop
 while True:
@@ -148,16 +134,15 @@ while True:
 
         y += 1
 
-
-
-
     #defining character movement variable
     player_movement = [0,0]
     #Establing how player moves based on moving variable
     if moving_right:
         player_movement[0] += 2
+        direction = 1
     if moving_left:
         player_movement[0] -= 2
+        direction = 0
     player_movement[1] += player_y_momentum
     player_y_momentum += 0.2
     if player_y_momentum > 3:
@@ -165,7 +150,7 @@ while True:
 
 
     player_rect, collisions = move(player_rect, player_movement, tile_rects)
-    #Checking if character collides with bottom or top of platform and establishes a jump time
+    # Checking if character collides with bottom or top of platform and establishes a jump time
     if collisions['bottom']:
         player_y_momentum = 0
         air_timer = 0
@@ -176,12 +161,14 @@ while True:
         player_y_momentum = 0
 
     #displaying of player
-    display.blit(player_image, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
+    if direction == 1:
+        display.blit(right_player_image, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
+    elif direction == 0:
+        display.blit(left_player_image, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
 
     #Establishes movement by keystroke and Quiting of game loop
     for event in pygame.event.get():
         if event.type == QUIT:
-
             pygame.quit()
             sys.exit()
         if event.type == KEYDOWN:
