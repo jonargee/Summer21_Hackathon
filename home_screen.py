@@ -80,7 +80,7 @@ class UIElement(Sprite):
 def title_screen(screen):
     play_title_scr_music()
     start_btn = UIElement(
-        center_position=(300, 200),
+        center_position=(300, 150),
         font_size=30,
         bg_rgb=GREEN,
         text_rgb=BLACK,
@@ -89,7 +89,7 @@ def title_screen(screen):
     )
 
     quit_btn = UIElement(
-        center_position=(300, 100),
+        center_position=(300, 250),
         font_size=30,
         bg_rgb=GREEN,
         text_rgb=BLACK,

@@ -9,6 +9,7 @@ pygame.init()
 
 
 def play_level(screen):
+    level_select = 1 # placeholder for various levels
     pygame.display.set_caption('Pygame Window')
     play_level_music()
     # Window and display size
