@@ -101,10 +101,10 @@ def play_level(screen):
                 self.walk_count += 1
 
         def hit(self):
-            player_location = [50, 300]
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Life - 1', True, (255, 255, 255))
             display.blit(text, (300 - (text.get_width() / 2), 175))
+            player_rect.x = 50
             pygame.display.update()
 
         def move(self):
