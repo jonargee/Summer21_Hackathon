@@ -11,7 +11,7 @@ BLACK = (0, 0, 0)
 
 def create_surface_with_text(text, font_size, text_rgb, bg_rgb):
     """creates menu surface"""
-    font = pygame.freetype.SysFont("Courier", font_size, bold=True)
+    font = pygame.freetype.SysFont("Impact", font_size, bold=True)
     surface, _ = font.render(text=text, fgcolor=text_rgb, bgcolor=bg_rgb)
     return surface.convert_alpha()
 
@@ -82,8 +82,8 @@ def title_screen(screen):
     start_btn = UIElement(
         center_position=(300, 150),
         font_size=30,
-        bg_rgb=GREEN,
-        text_rgb=BLACK,
+        bg_rgb=BLACK,
+        text_rgb=WHITE,
         text="START",
         action=GameState.NEWGAME,
     )
@@ -91,8 +91,8 @@ def title_screen(screen):
     quit_btn = UIElement(
         center_position=(300, 250),
         font_size=30,
-        bg_rgb=GREEN,
-        text_rgb=BLACK,
+        bg_rgb=BLACK,
+        text_rgb=WHITE,
         text="QUIT",
         action=GameState.QUIT,
     )
@@ -101,6 +101,7 @@ def title_screen(screen):
     fly_1 = pygame.transform.scale(fly_1, (600, 400))
     fly_2 = pygame.image.load("fly_2.png")
     fly_2 = pygame.transform.scale(fly_2, (600, 400))
+    bg_image = pygame.image.load("fish_title_bg_2.JPG")
     buttons = [start_btn, quit_btn]
 
     while True:
@@ -109,8 +110,8 @@ def title_screen(screen):
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 play_meow_fx()
                 mouse_up = True
-        screen.fill(GREEN)
-        screen.blit(fly_1, (-150, -50))
+        screen.blit(bg_image, (0, 0))
+        screen.blit(fly_1, (10, 64))
         screen.blit(fly_2, (200, 150))
 
         for button in buttons:
