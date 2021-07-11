@@ -13,6 +13,6 @@ Gen Will
 
 Title and Background Art by Samantha Mullen and Jon Ram
 
-Music and Sound Effects by Jon Ramm
+Music and Sound Effects by Jon Ramm and Steven the cat
 
 Icons made by Freepik from www.flaticon.com
