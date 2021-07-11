@@ -18,6 +18,8 @@ def play_level(screen):
 
     # Images for game
     player_image = pygame.image.load('cat.png')
+    player_image_right = player_image
+    player_image_left = pygame.transform.flip(player_image, True, False)
     floor_image = pygame.image.load('check.png')
     FLOOR_TILE = floor_image.get_width()
     shelf_image = pygame.image.load('shelf.png')
@@ -33,6 +35,7 @@ def play_level(screen):
 
     # creating scroll variable
     scroll = [0, 0]
+    direction = 1
 
     class collectable():
         def __init__(self, loc):
@@ -218,21 +221,19 @@ def play_level(screen):
 
             y += 1
 
-
-
-
         #defining character movement variable
         player_movement = [0,0]
         #Establing how player moves based on moving variable
         if moving_right:
             player_movement[0] += 2
+            direction = 1
         if moving_left:
             player_movement[0] -= 2
+            direction = 0
         player_movement[1] += player_y_momentum
         player_y_momentum += 0.2
         if player_y_momentum > 3:
             player_y_momentum = 3
-
 
         player_rect, collisions = move(player_rect, player_movement, tile_rects)
         #Checking if character collides with bottom or top of platform and establishes a jump time
@@ -246,8 +247,10 @@ def play_level(screen):
             player_y_momentum = 0
 
         #displaying of player
-        display.blit(player_image, (player_rect.x - scroll[0], player_rect.y- scroll[1]))
-
+        if direction == 1:
+            display.blit(player_image_right, (player_rect.x - scroll[0], player_rect.y- scroll[1]))
+        elif direction == 0:
+            display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
         roach1.draw(display)
         roach2.draw(display)
 
