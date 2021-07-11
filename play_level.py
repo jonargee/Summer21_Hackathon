@@ -101,10 +101,10 @@ def play_level(screen):
                 self.walk_count += 1
 
         def hit(self):
-            player_location = [50, 300]
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Life - 1', True, (255, 255, 255))
             display.blit(text, (300 - (text.get_width() / 2), 175))
+            player_rect.x = 50
             pygame.display.update()
 
         def move(self):
@@ -301,6 +301,10 @@ def play_level(screen):
             if roach.collision_test(player_rect):
                 lives -= 1
                 roach.hit()
+
+        font2 = pygame.font.SysFont('comicsans', 20)
+        lives_text = font2.render('Lives: ' + str(lives), True, (255,255,255))
+        display.blit(lives_text, (10,10))
 
         for fish in collectable_fish:
             fish.draw_fish(display)
