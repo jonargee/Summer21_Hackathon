@@ -4,6 +4,7 @@ Beaverhacks Summer Sprint
 Welcome to fishQuest!
 It's a story of a cat on a journey with a singular motivation, to get fish. Avoid Roaches and get those fish!
 Created By:
+
 Jon Ramm
 Larry Kwok
 Gen Will
