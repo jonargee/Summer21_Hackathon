@@ -11,7 +11,7 @@ Larry Kwok
 
 Gen Will
 
-Title and Background Art by Jon Ramm
+Title and Background Art by Samantha Mullen and Jon Ram
 
 Music and Sound Effects by Jon Ramm
 
