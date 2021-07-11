@@ -105,7 +105,7 @@ def play_level(screen):
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Life - 1', True, (255, 255, 255))
             display.blit(text, (300 - (text.get_width() / 2), 175))
-            player_rect.x = 30
+            player_rect.x = 50
             pygame.display.update()
 
         def move(self):
@@ -268,7 +268,7 @@ def play_level(screen):
 
         # defining character movement variable
         player_movement = [0, 0]
-        # Establishing how player moves based on moving variable
+        # Establing how player moves based on moving variable
         if moving_right:
             player_movement[0] += 2
             direction = 1
@@ -299,10 +299,11 @@ def play_level(screen):
 
         for roach in enemies:
             roach.draw(display)
-            if roach.collision_test(player_rect):
+
+            if player_rect.colliderect(roach.get_rect()):
                 lives -= 1
-        if player_rect.x == 30:
-            lives -=1
+                roach.collision_test(player_rect)
+
 
 
         font2 = pygame.font.SysFont('comicsans', 20)
