@@ -208,6 +208,7 @@ def play_level(screen):
     roach5 = enemy(1320, 295, 16, 16, 1400)
     roach6 = enemy(1738, 72, 16, 16, 1970)
     roach7 = enemy(2844, 106, 16, 16, 2980)
+    roach8 = enemy(2646, 170, 16, 16, 2646)
     fish1 = collectable(305, 190)
     fish2 = collectable(600, 95)
     fish3 = collectable(1155, 190)
@@ -216,7 +217,7 @@ def play_level(screen):
     fish6 = collectable(3582, 30)
 
     collectable_fish = [fish1, fish2, fish3, fish4, fish5, fish6]
-    enemies = [roach1, roach2, roach3, roach4, roach5, roach6, roach7]
+    enemies = [roach1, roach2, roach3, roach4, roach5, roach6, roach7, roach8]
 
     score = 0
     lives = 9
