@@ -195,9 +195,16 @@ def play_level(screen):
     enemy_location = [700, 285]
     enemy_rect = pygame.Rect(enemy_location[0], enemy_location[1], roach_image.get_width(), roach_image.get_height())
     roach1 = enemy(175, 295, 16, 16, 230)
-    roach2 = enemy(450, 295, 16, 16, 480)
+    roach2 = enemy(400, 295, 16, 16, 1040)
+    roach3 = enemy(800, 140, 16, 16, 880)
+    roach4 = enemy(1280, 295, 16, 16, 2500)
+    roach5 = enemy(1320, 295, 16, 16, 1400)
+    roach6 = enemy(1738, 72, 16, 16, 1970)
     fish1 = collectable(305, 190)
     fish2 = collectable(600, 95)
+    fish3 = collectable(1155, 190)
+    fish4 = collectable(1970, 64)
+    fish5 = collectable(2398, 128)
 
     score = 0
 
@@ -279,8 +286,16 @@ def play_level(screen):
             display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
         roach1.draw(display)
         roach2.draw(display)
+        roach3.draw(display)
+        roach4.draw(display)
+        roach5.draw(display)
+        roach6.draw(display)
         fish1.draw(display)
         fish2.draw(display)
+        fish3.draw(display)
+        fish4.draw(display)
+        fish5.draw(display)
+        print(player_rect.x, player_rect.y)
 
 
         #Establishes movement by keystroke and Quiting of game loop
