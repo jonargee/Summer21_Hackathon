@@ -1,3 +1,4 @@
+
 import pygame, sys
 import random
 
@@ -298,9 +299,10 @@ def play_level(screen):
 
         for roach in enemies:
             roach.draw(display)
-            if roach.collision_test(player_rect):
+            if player_rect.colliderect(roach.get_rect()):
                 lives -= 1
-                roach.hit()
+                roach.collision_test(player_rect)
+
 
 
         font2 = pygame.font.SysFont('comicsans', 20)
