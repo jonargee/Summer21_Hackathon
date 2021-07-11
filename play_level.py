@@ -53,9 +53,11 @@ def play_level(screen):
             self.fish_img = pygame.image.load('fishbone.png')
             self.fly_img = pygame.image.load('fly_2.png')
             self.hitbox = (self.x, self.y, 25, 30)
+            self.visible = True
 
         def draw_fish(self, win):
-            display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
+            if self.visible == True:
+                display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def draw_fly(self, win):
             display.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
@@ -68,12 +70,15 @@ def play_level(screen):
             text = font1.render('Score +1', True, (255, 255, 255))
             display.blit(text, (300 - (text.get_width() / 2), 175))
             pygame.display.update()
+            self.visible = False
+
 
         def collision_test(self, rect):
-            collect_rect = self.get_rect()
-            if collect_rect.colliderect(rect):
-                self.hit()
-                good_thing()
+            if self.visible == True:
+                collect_rect = self.get_rect()
+                if collect_rect.colliderect(rect):
+                    self.hit()
+                    good_thing()
 
     class enemy(object):
 
