@@ -68,7 +68,7 @@ def play_level(screen):
 
         def collision_test(self, rect):
             collect_rect = self.get_rect()
-            if collect_rect.colliderect(rect) == True:
+            if collect_rect.colliderect(rect):
                 print('hit')
 
 
@@ -201,7 +201,7 @@ def play_level(screen):
 
         #defining scroll value based on character location
         scroll[0] += (player_rect.x - scroll[0]- 50)
-        scroll[1] += (player_rect.y - scroll[1] - 300)
+        
 
         #defining list of tile rectangles for map
         tile_rects = []
@@ -261,11 +261,6 @@ def play_level(screen):
         roach2.draw(display)
         fish1.draw(display)
         fish2.draw(display)
-
-        if player_rect.y < roach1.hitbox[1] + roach1.hitbox[3] and player_rect.y > roach1.hitbox[1]:
-            if player_rect.x > roach1.hitbox[0] and player_rect.x < roach1.hitbox[0] + roach1.hitbox[2]:
-                roach1.hit()
-
 
 
         #Establishes movement by keystroke and Quiting of game loop
