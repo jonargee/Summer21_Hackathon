@@ -299,7 +299,6 @@ def play_level(screen):
 
         for roach in enemies:
             roach.draw(display)
-
             if player_rect.colliderect(roach.get_rect()):
                 lives -= 1
                 roach.collision_test(player_rect)
