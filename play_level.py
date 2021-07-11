@@ -39,18 +39,38 @@ def play_level(screen):
     direction = 1
 
     class collectable():
-        def __init__(self, loc):
-            self.location = player_location
 
-        def render(self, surf, scroll):
-            display.blit(fish_img, (self.loc[0] - scroll[0], self.loc[1] - scroll[1]))
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+            self.fish_img = pygame.image.load('fishbone.png')
+            self.hitbox = (self.x, self.y, 25, 30)
+
+        def draw(self, win):
+            display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def get_rect(self):
-            return pygame.Rect(self.loc[0], self.loc[1], 32, 32)
+            return pygame.Rect(x, y, 32, 32)
 
-        def collect(self):
+        def hit(self):
+            font1 = pygame.font.SysFont('comicsans', 100)
+            text = font1.render('Score +1', 1, (255, 255, 255))
+            display.blit(text, (250 - (text.get_width() / 2)))
+            pygame.display.update()
+            i = 0
+            while i < 100:
+                pygame.time.delay(10)
+                i += 1
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        i = 301
+                        pygame.quit()
+
+        def collision_test(self, rect):
             collect_rect = self.get_rect()
-            return collect_rect.colliderect(rect)
+            if collect_rect.colliderect(rect) == True:
+                print('hit')
+
 
     class enemy(object):
 
@@ -112,20 +132,6 @@ def play_level(screen):
 
     game_map = load_map('map')
 
-    # old game map that I didn't want to erase because I spent a lot of time writing it
-    game_map2 = [['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '2', '2', '2', '2', '2', '2', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
-                 ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
-                 ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
-                 ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
-                 ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
-                 ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1']]
 
     def collision_test(rect, tiles):
         """
@@ -181,14 +187,13 @@ def play_level(screen):
 
     enemy_location = [700, 285]
     enemy_rect = pygame.Rect(enemy_location[0], enemy_location[1], roach_image.get_width(), roach_image.get_height())
-    roach1 = enemy(200, 295, 16, 16, 230)
+    roach1 = enemy(175, 295, 16, 16, 230)
     roach2 = enemy(450, 295, 16, 16, 480)
+    fish1 = collectable(305, 190)
+    fish2 = collectable(600, 95)
 
     score = 0
-    collect_objects = []
 
-    for i in range(5):
-        collect_objects.append(collectable((random.randint(0, 600) - 300, 80)))
 
     while True:
         #fills display with color
@@ -254,18 +259,13 @@ def play_level(screen):
             display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
         roach1.draw(display)
         roach2.draw(display)
+        fish1.draw(display)
+        fish2.draw(display)
 
         if player_rect.y < roach1.hitbox[1] + roach1.hitbox[3] and player_rect.y > roach1.hitbox[1]:
             if player_rect.x > roach1.hitbox[0] and player_rect.x < roach1.hitbox[0] + roach1.hitbox[2]:
                 roach1.hit()
 
-
-
-
-        #for collectable in collect_objects:
-        #    collectable.render(display.scroll)
-        #    if collectables.collision_test(player_rect):
-         #       scrore += 1
 
 
         #Establishes movement by keystroke and Quiting of game loop
