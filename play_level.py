@@ -201,7 +201,7 @@ def play_level(screen):
 
     enemy_location = [700, 285]
     enemy_rect = pygame.Rect(enemy_location[0], enemy_location[1], roach_image.get_width(), roach_image.get_height())
-    roach1 = enemy(175, 295, 16, 16, 230)
+    roach1 = enemy(200, 295, 16, 16, 230)
     roach2 = enemy(400, 295, 16, 16, 1040)
     roach3 = enemy(800, 140, 16, 16, 880)
     roach4 = enemy(1280, 295, 16, 16, 2500)
