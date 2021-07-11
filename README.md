@@ -10,5 +10,6 @@ Gen Will
 
 Title and Background Art done by Jon Ramm
 
+Music and Sound Effects by Jon Ramm
 
 Icons made by Freepik from www.flaticon.com
