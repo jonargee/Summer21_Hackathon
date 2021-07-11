@@ -1,7 +1,7 @@
 import pygame
 import pygame.freetype
 from pygame.sprite import Sprite
-from music import play_title_scr_music, play_level_music
+from music import play_title_scr_music, play_level_music, play_meow_fx
 from enum import Enum
 from pygame.rect import Rect
 
@@ -59,28 +59,28 @@ class UIElement(Sprite):
 
 
 
-def main():
-    pygame.init()
-
-    screen = pygame.display.set_mode((800, 600))
-    game_state = GameState.TITLE
-
-    while True:
-        if game_state == GameState.TITLE:
-            game_state = title_screen(screen)
-
-        if game_state == GameState.NEWGAME:
-            game_state = play_level(screen)
-
-        if game_state == GameState.QUIT:
-            pygame.quit()
-            return
+# def main():
+#     pygame.init()
+#
+#     screen = pygame.display.set_mode((600, 400))
+#     game_state = GameState.TITLE
+#
+#     while True:
+#         if game_state == GameState.TITLE:
+#             game_state = title_screen(screen)
+#
+#         if game_state == GameState.NEWGAME:
+#             game_state = play_level(screen)
+#
+#         if game_state == GameState.QUIT:
+#             pygame.quit()
+#             return
 
 
 def title_screen(screen):
     play_title_scr_music()
     start_btn = UIElement(
-        center_position=(400, 400),
+        center_position=(300, 200),
         font_size=30,
         bg_rgb=GREEN,
         text_rgb=BLACK,
@@ -89,7 +89,7 @@ def title_screen(screen):
     )
 
     quit_btn = UIElement(
-        center_position=(400, 200),
+        center_position=(300, 100),
         font_size=30,
         bg_rgb=GREEN,
         text_rgb=BLACK,
@@ -103,6 +103,7 @@ def title_screen(screen):
         mouse_up = False
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                play_meow_fx()
                 mouse_up = True
         screen.fill(GREEN)
 
@@ -115,30 +116,31 @@ def title_screen(screen):
         pygame.display.flip()
 
 
-def play_level(screen):
-    play_level_music()
-    return_btn = UIElement(
-        center_position=(140, 570),
-        font_size=20,
-        bg_rgb=GREEN,
-        text_rgb=BLACK,
-        text="RETURN TO MAIN MENU",
-        action=GameState.TITLE,
-    )
-
-    while True:
-        mouse_up = False
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                mouse_up = True
-        screen.fill(GREEN)
-
-        ui_action = return_btn.update(pygame.mouse.get_pos(), mouse_up)
-        if ui_action is not None:
-            return ui_action
-        return_btn.draw(screen)
-
-        pygame.display.flip()
+# def play_level(screen):
+#     play_level_music()
+#     return_btn = UIElement(
+#         center_position=(150, 350),
+#         font_size=20,
+#         bg_rgb=GREEN,
+#         text_rgb=BLACK,
+#         text="RETURN TO MAIN MENU",
+#         action=GameState.TITLE,
+#     )
+#
+#     while True:
+#         mouse_up = False
+#         for event in pygame.event.get():
+#             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+#                 play_meow_fx()
+#                 mouse_up = True
+#         screen.fill(GREEN)
+#
+#         ui_action = return_btn.update(pygame.mouse.get_pos(), mouse_up)
+#         if ui_action is not None:
+#             return ui_action
+#         return_btn.draw(screen)
+#
+#         pygame.display.flip()
 
 #
 #     run = True
@@ -161,7 +163,7 @@ def play_level(screen):
 #
 #     pygame.quit()
 #
-main()
+# main()
 
 
 
