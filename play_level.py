@@ -88,6 +88,7 @@ def play_level(screen):
             self.vel = 2
             self.roach_img = pygame.image.load('roach.png')
             self.hitbox = (self.x, self.y, 25, 30)
+            self.lives = 9
 
         def draw(self, win):
             self.move()
@@ -102,11 +103,12 @@ def play_level(screen):
 
         def hit(self):
             good_thing()
-            player_location = [50, 300]
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Life - 1', True, (255, 255, 255))
             display.blit(text, (300 - (text.get_width() / 2), 175))
             pygame.display.update()
+            player_rect.x = 50
+            self.lives -= 1
 
         def move(self):
             if self.vel > 0:
@@ -296,11 +298,13 @@ def play_level(screen):
         elif direction == 0:
             display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
 
+
         for roach in enemies:
             roach.draw(display)
             if roach.collision_test(player_rect):
-                lives -= 1
                 roach.hit()
+                lives -= 1
+
 
         for fish in collectable_fish:
             fish.draw_fish(display)
