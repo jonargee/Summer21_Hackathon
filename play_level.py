@@ -101,7 +101,6 @@ def play_level(screen):
                 self.walk_count += 1
 
         def hit(self):
-            good_thing()
             player_location = [50, 300]
             font1 = pygame.font.SysFont('comicsans', 100)
             text = font1.render('Life - 1', True, (255, 255, 255))
@@ -129,7 +128,7 @@ def play_level(screen):
             collect_rect = self.get_rect()
             if collect_rect.colliderect(rect):
                 self.hit()
-                good_thing()
+                bad_thing()
 
     def load_map(path):
         """
