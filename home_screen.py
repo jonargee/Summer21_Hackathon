@@ -114,7 +114,7 @@ def title_screen(screen):
         screen.blit(fly_1, (10, 64))
         screen.blit(fly_2, (200, 150))
         credits_game_design = create_surface_with_text("Game Design:", 20, BLACK, WHITE)
-        credits_gen = create_surface_with_text("Gen Wills", 20, BLACK, WHITE)
+        credits_gen = create_surface_with_text("Gen Will", 20, BLACK, WHITE)
         credits_larry = create_surface_with_text("Larry Kwok", 20, BLACK, WHITE)
         credits_jon = create_surface_with_text("Jon Ramm", 20, BLACK, WHITE)
         screen.blit(credits_game_design, (0, 300))
