@@ -38,7 +38,6 @@ def play_level(screen):
     grey_image = pygame.image.load('grey.png')
     GREY_TILE = shelf_image.get_width()
     roach_image = pygame.image.load('roach.png')
-    # fish_img = pygame.image.load('fishbone.png')
 
     # creating scroll variable
     scroll = [0, 0]
@@ -50,33 +49,28 @@ def play_level(screen):
             self.x = x
             self.y = y
             self.fish_img = pygame.image.load('fishbone.png')
+
             self.hitbox = (self.x, self.y, 25, 30)
 
         def draw(self, win):
             display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
 
         def get_rect(self):
-            return pygame.Rect(x, y, 32, 32)
+            fish_rect = pygame.Rect(self.x, self.y, self.fish_img.get_width(),
+                              self.fish_img.get_height())
+            return fish_rect
 
         def hit(self):
             font1 = pygame.font.SysFont('comicsans', 100)
-            text = font1.render('Score +1', 1, (255, 255, 255))
-            display.blit(text, (250 - (text.get_width() / 2)))
+            text = font1.render('Score +1', True, (255, 255, 255))
+            display.blit(text, (300 - (text.get_width() / 2),175))
             pygame.display.update()
-            i = 0
-            while i < 100:
-                pygame.time.delay(10)
-                i += 1
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        i = 301
-                        pygame.quit()
+
 
         def collision_test(self, rect):
             collect_rect = self.get_rect()
             if collect_rect.colliderect(rect):
-                print('hit')
-
+                self.hit()
 
     class enemy(object):
 
@@ -105,7 +99,11 @@ def play_level(screen):
 
         def hit(self):
             good_thing()
-            print('hit')
+            player_location = [50,300]
+            font1 = pygame.font.SysFont('comicsans', 100)
+            text = font1.render('Life - 1', True, (255, 255, 255))
+            display.blit(text, (300 - (text.get_width() / 2), 175))
+            pygame.display.update()
 
         def move(self):
             if self.vel > 0:
@@ -120,6 +118,16 @@ def play_level(screen):
                 else:
                     self.vel = self.vel * -1
                     self.walk_count = 0
+
+        def get_rect(self):
+            roach_rect = pygame.Rect(self.x, self.y, self.roach_img.get_width(),
+                                    self.roach_img.get_height())
+            return roach_rect
+
+        def collision_test(self, rect):
+            collect_rect = self.get_rect()
+            if collect_rect.colliderect(rect):
+                self.hit()
 
     def load_map(path):
         """
@@ -178,6 +186,7 @@ def play_level(screen):
                 collision_types['top'] = True
         return rect, collision_types
 
+
     # Establishing moving right and left variable
     moving_right = False
     moving_left = False
@@ -191,15 +200,25 @@ def play_level(screen):
     player_rect = pygame.Rect(player_location[0], player_location[1], player_image.get_width(),
                               player_image.get_height())
 
-    enemy_location = [700, 285]
-    enemy_rect = pygame.Rect(enemy_location[0], enemy_location[1], roach_image.get_width(), roach_image.get_height())
+
     roach1 = enemy(175, 295, 16, 16, 230)
-    roach2 = enemy(450, 295, 16, 16, 480)
+    roach2 = enemy(400, 295, 16, 16, 1040)
+    roach3 = enemy(800, 140, 16, 16, 880)
+    roach4 = enemy(1280, 295, 16, 16, 2500)
+    roach5 = enemy(1320, 295, 16, 16, 1400)
+    roach6 = enemy(1738, 72, 16, 16, 1970)
+
     fish1 = collectable(305, 190)
     fish2 = collectable(600, 95)
+    fish3 = collectable(1155, 190)
+    fish4 = collectable(1970, 64)
+    fish5 = collectable(2398, 128)
+
+    collectable_objs = [fish1,fish2,fish3,fish4,fish5]
+    enemy_objs = [roach1,roach2,roach3,roach4,roach5,roach6]
 
     score = 0
-
+    lives = 9
 
     while True:
 
@@ -257,6 +276,7 @@ def play_level(screen):
             player_y_momentum = 3
 
         player_rect, collisions = move(player_rect, player_movement, tile_rects)
+
         #Checking if character collides with bottom or top of platform and establishes a jump time
         if collisions['bottom']:
             player_y_momentum = 0
@@ -272,10 +292,20 @@ def play_level(screen):
             display.blit(player_image_right, (player_rect.x - scroll[0], player_rect.y- scroll[1]))
         elif direction == 0:
             display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
-        roach1.draw(display)
-        roach2.draw(display)
-        fish1.draw(display)
-        fish2.draw(display)
+
+
+        for fish in collectable_objs:
+            fish.draw(display)
+            if fish.collision_test(player_rect):
+                score += 1
+                fish.hit()
+
+        for roach in enemy_objs:
+            roach.draw(display)
+            if roach.collision_test(player_rect):
+                lives -= 1
+                roach.hit()
+
 
 
         #Establishes movement by keystroke and Quiting of game loop
