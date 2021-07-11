@@ -6,7 +6,9 @@ It's a story of a cat on a journey with a singular motivation, to get fish. Avoi
 Created By:
 
 Jon Ramm
+
 Larry Kwok
+
 Gen Will
 
 Title and Background Art done by Jon Ramm
