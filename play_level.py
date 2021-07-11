@@ -49,11 +49,15 @@ def play_level(screen):
             self.x = x
             self.y = y
             self.fish_img = pygame.image.load('fishbone.png')
-
+            self.fly_img = pygame.transform.scale(self.fly_img, (600, 400))
             self.hitbox = (self.x, self.y, 25, 30)
 
-        def draw(self, win):
-            display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
+        def draw(self, col_type, win):
+            if col_type == 1:
+                display.blit(self.fish_img, (self.x - scroll[0], self.y - scroll[1]))
+            elif col_type == 2:
+                display.blit(self.fly_img, (self.x - scroll[0], self.y - scroll[1]))
+
 
         def get_rect(self):
             fish_rect = pygame.Rect(self.x, self.y, self.fish_img.get_width(),
@@ -213,6 +217,7 @@ def play_level(screen):
     fish3 = collectable(1155, 190)
     fish4 = collectable(1970, 64)
     fish5 = collectable(2398, 128)
+    fly1 = collectable(1056, 288)
 
     collectable_objs = [fish1,fish2,fish3,fish4,fish5]
     enemy_objs = [roach1,roach2,roach3,roach4,roach5,roach6]
@@ -293,9 +298,11 @@ def play_level(screen):
         elif direction == 0:
             display.blit(player_image_left, (player_rect.x - scroll[0], player_rect.y - scroll[1]))
 
+        fly1.draw(2, display)
+        print(player_rect.x, player_rect.y)
 
         for fish in collectable_objs:
-            fish.draw(display)
+            fish.draw(1,display)
             if fish.collision_test(player_rect):
                 score += 1
                 fish.hit()
